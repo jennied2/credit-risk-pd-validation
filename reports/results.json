@@ -1,0 +1,401 @@
+{
+  "lc_is_real": true,
+  "lc_raw_rows": 250000,
+  "target_audit": {
+    "rows_total": 250000,
+    "rows_dropped_unresolved": 112432,
+    "unresolved_status_values": {
+      "Current": 108166,
+      "Late (31-120 days)": 2705,
+      "In Grace Period": 1022,
+      "Late (16-30 days)": 539
+    },
+    "rows_kept": 137568,
+    "default_rate": 0.2082,
+    "leakage_columns_dropped": [
+      "recoveries",
+      "collection_recovery_fee",
+      "total_pymnt",
+      "total_rec_prncp",
+      "total_rec_int",
+      "last_pymnt_amnt",
+      "out_prncp"
+    ],
+    "lender_assessment_excluded": [
+      "grade",
+      "sub_grade",
+      "int_rate"
+    ]
+  },
+  "splits": {
+    "train": 109662,
+    "valid": 21003,
+    "oot": 6903,
+    "train_default_rate": 0.2065,
+    "valid_default_rate": 0.232,
+    "oot_default_rate": 0.1621
+  },
+  "leakage_demo": {
+    "auc_with_leakage": 1.0,
+    "auc_clean": 0.659,
+    "leakage_columns": [
+      "recoveries",
+      "collection_recovery_fee",
+      "total_pymnt",
+      "total_rec_prncp",
+      "total_rec_int",
+      "last_pymnt_amnt",
+      "out_prncp"
+    ]
+  },
+  "iv_table": {
+    "fico": 0.1097,
+    "dti": 0.0679,
+    "annual_inc": 0.0334,
+    "home_ownership": 0.032,
+    "loan_amnt": 0.0315,
+    "inq_last_6mths": 0.0208,
+    "purpose": 0.0189,
+    "revol_util": 0.0174,
+    "emp_length": 0.0044,
+    "open_acc": 0.0039,
+    "term_months": 0.0
+  },
+  "scorecard": {
+    "features": [
+      "fico",
+      "dti",
+      "annual_inc",
+      "loan_amnt",
+      "inq_last_6mths",
+      "home_ownership"
+    ],
+    "dropped_low_iv": [
+      "term_months",
+      "emp_length",
+      "revol_util",
+      "open_acc",
+      "purpose"
+    ],
+    "wald": [
+      {
+        "term": "intercept",
+        "coef": -1.3467,
+        "std_err": 0.0077,
+        "z": -173.9493,
+        "p_value": 0.0
+      },
+      {
+        "term": "fico",
+        "coef": -0.9563,
+        "std_err": 0.0251,
+        "z": -38.0935,
+        "p_value": 0.0
+      },
+      {
+        "term": "dti",
+        "coef": -0.7872,
+        "std_err": 0.0302,
+        "z": -26.0383,
+        "p_value": 0.0
+      },
+      {
+        "term": "annual_inc",
+        "coef": -1.0971,
+        "std_err": 0.0492,
+        "z": -22.2993,
+        "p_value": 0.0
+      },
+      {
+        "term": "loan_amnt",
+        "coef": -1.7812,
+        "std_err": 0.0489,
+        "z": -36.4496,
+        "p_value": 0.0
+      },
+      {
+        "term": "inq_last_6mths",
+        "coef": -0.977,
+        "std_err": 0.0516,
+        "z": -18.9478,
+        "p_value": 0.0
+      },
+      {
+        "term": "home_ownership",
+        "coef": -0.877,
+        "std_err": 0.0442,
+        "z": -19.8201,
+        "p_value": 0.0
+      }
+    ]
+  },
+  "monotonicity_verified": {
+    "fico": true,
+    "dti": true,
+    "annual_inc": true,
+    "loan_amnt": true,
+    "term_months": true,
+    "emp_length": true,
+    "revol_util": true,
+    "inq_last_6mths": true
+  },
+  "discrimination": {
+    "champion": {
+      "AUC": 0.6429,
+      "Gini": 0.2859,
+      "KS": 0.2134
+    },
+    "challenger": {
+      "AUC": 0.6856,
+      "Gini": 0.3711,
+      "KS": 0.2668
+    }
+  },
+  "calibration": {
+    "champion": {
+      "Brier": 0.13146,
+      "HL_chi2": 20.63,
+      "dof": 8,
+      "p_value": 0.0082
+    },
+    "challenger": {
+      "Brier": 0.12929,
+      "HL_chi2": 57.39,
+      "dof": 8,
+      "p_value": 0.0
+    }
+  },
+  "stability": {
+    "score_psi_train_oot": {
+      "PSI": 0.0574,
+      "band": "stable"
+    },
+    "dti_psi_train_oot": {
+      "PSI": 0.043,
+      "band": "stable"
+    },
+    "fico_psi_train_oot": {
+      "PSI": 0.1638,
+      "band": "moderate shift"
+    }
+  },
+  "business": {
+    "expected_loss_champion": 10483812.0,
+    "expected_loss_challenger": 12042007.0,
+    "portfolio_ead": 101648675.0
+  },
+  "shap_global": {
+    "term_months": 0.062,
+    "fico": 0.0614,
+    "annual_inc": 0.0426,
+    "loan_amnt": 0.0417,
+    "dti": 0.0416,
+    "inq_last_6mths": 0.038,
+    "revol_util": 0.0329,
+    "home_ownership": 0.0325,
+    "purpose": 0.0317,
+    "open_acc": 0.0296,
+    "emp_length": 0.0292
+  },
+  "local_example": {
+    "E_f": 0.192,
+    "f_x": 0.8276,
+    "applicant_pd": 0.8276
+  },
+  "reason_codes": {
+    "challenger_shap": [
+      [
+        "loan_amnt",
+        0.2281,
+        "Requested loan amount high relative to profile"
+      ],
+      [
+        "term_months",
+        0.1781,
+        "Loan term elevates risk"
+      ],
+      [
+        "dti",
+        0.1316,
+        "Debt-to-income ratio too high"
+      ],
+      [
+        "annual_inc",
+        0.087,
+        "Annual income below approved-applicant norms"
+      ]
+    ],
+    "champion_scorecard": [
+      [
+        "inq_last_6mths",
+        -2.8,
+        "Too many recent credit inquiries"
+      ],
+      [
+        "dti",
+        -2.7,
+        "Debt-to-income ratio too high"
+      ],
+      [
+        "loan_amnt",
+        -2.1,
+        "Requested loan amount high relative to profile"
+      ],
+      [
+        "annual_inc",
+        -0.5,
+        "Annual income below approved-applicant norms"
+      ]
+    ]
+  },
+  "conceptual_soundness": [
+    {
+      "feature": "fico",
+      "challenger_sign": -1,
+      "champion_sign": -1,
+      "theory_sign": -1,
+      "all_agree": true
+    },
+    {
+      "feature": "dti",
+      "challenger_sign": 1,
+      "champion_sign": 1,
+      "theory_sign": 1,
+      "all_agree": true
+    },
+    {
+      "feature": "annual_inc",
+      "challenger_sign": -1,
+      "champion_sign": -1,
+      "theory_sign": -1,
+      "all_agree": true
+    },
+    {
+      "feature": "loan_amnt",
+      "challenger_sign": 1,
+      "champion_sign": 1,
+      "theory_sign": 1,
+      "all_agree": true
+    },
+    {
+      "feature": "term_months",
+      "challenger_sign": 1,
+      "champion_sign": 1,
+      "theory_sign": 1,
+      "all_agree": true
+    },
+    {
+      "feature": "emp_length",
+      "challenger_sign": -1,
+      "champion_sign": -1,
+      "theory_sign": -1,
+      "all_agree": true
+    },
+    {
+      "feature": "revol_util",
+      "challenger_sign": -1,
+      "champion_sign": 1,
+      "theory_sign": 1,
+      "all_agree": false
+    },
+    {
+      "feature": "inq_last_6mths",
+      "challenger_sign": 1,
+      "champion_sign": 1,
+      "theory_sign": 1,
+      "all_agree": true
+    },
+    {
+      "feature": "open_acc",
+      "challenger_sign": 1,
+      "champion_sign": -1,
+      "theory_sign": 0,
+      "all_agree": false
+    }
+  ],
+  "implementation_test": {
+    "rerun_oot_auc": 0.6856,
+    "reported_oot_auc": 0.6856,
+    "reproducible": true
+  },
+  "hmda_is_real": false,
+  "hmda_rows": 40000,
+  "hmda_denial_rate": 0.6027,
+  "air_observed": [
+    {
+      "group": "Joint",
+      "approval_rate": 0.429,
+      "n": 2409,
+      "AIR_vs_ref": 1.0,
+      "flag_80pct_rule": false
+    },
+    {
+      "group": "White",
+      "approval_rate": 0.427,
+      "n": 24857,
+      "AIR_vs_ref": 0.994,
+      "flag_80pct_rule": false
+    },
+    {
+      "group": "Asian",
+      "approval_rate": 0.42,
+      "n": 5133,
+      "AIR_vs_ref": 0.979,
+      "flag_80pct_rule": false
+    },
+    {
+      "group": "American Indian or Alaska Native",
+      "approval_rate": 0.305,
+      "n": 1184,
+      "AIR_vs_ref": 0.71,
+      "flag_80pct_rule": true
+    },
+    {
+      "group": "Black or African American",
+      "approval_rate": 0.27,
+      "n": 6417,
+      "AIR_vs_ref": 0.628,
+      "flag_80pct_rule": true
+    }
+  ],
+  "air_observed_ref": "Joint",
+  "model_baseline": {
+    "auc": 0.6801,
+    "min_AIR": 0.333,
+    "failing_80pct": [
+      "American Indian or Alaska Native",
+      "Black or African American"
+    ],
+    "parity_gaps": {
+      "TPR_equal_opportunity": 0.129,
+      "precision_predictive_parity": 0.115,
+      "FPR": 0.248
+    }
+  },
+  "model_reweighed": {
+    "auc": 0.6788,
+    "min_AIR": 0.337,
+    "failing_80pct": [
+      "American Indian or Alaska Native",
+      "Black or African American"
+    ],
+    "parity_gaps": {
+      "TPR_equal_opportunity": 0.102,
+      "precision_predictive_parity": 0.122,
+      "FPR": 0.23
+    }
+  },
+  "model_group_threshold": {
+    "thresholds": {
+      "White": 0.5,
+      "Asian": 0.5,
+      "Joint": 0.5,
+      "Black or African American": 0.596,
+      "American Indian or Alaska Native": 0.577
+    },
+    "min_AIR": 0.801,
+    "failing_80pct": [],
+    "approval_rate_before": 0.246,
+    "approval_rate_after": 0.273
+  }
+}
